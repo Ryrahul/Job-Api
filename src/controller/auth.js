@@ -5,7 +5,7 @@ const createtoken = require("../middleware/jwt");
 
 const Register = async (req, res, next) => {
   try {
-    email = req.body.email;
+    const {email} = req.body;
     const existing = await User.findOne({ email });
     if (existing) {
       return res.json({ message: "user already exists" });

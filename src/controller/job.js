@@ -33,9 +33,9 @@ const viewJob = async (req, res) => {
 
 const vieweachJob = async (req, res) => {
   try {
-    _id = req.params.id;
-    console.log(_id);
-    const eachJobs = await job.findById(_id);
+    const { id } = req.params;
+    console.log(id);
+    const eachJobs = await job.findById(id);
     res.send(eachJobs);
   } catch (e) {
     res.json(e.message);
@@ -43,24 +43,24 @@ const vieweachJob = async (req, res) => {
 };
 
 const deleteJob = async (req, res) => {
-  const _id = req.params.id;
-  console.log(_id);
-  const work = await job.findById(_id);
+  const { id } = req.params;
+  console.log(id);
+  const work = await job.findById(id);
   if (!work) {
     return res.status(401).send("No such Jobs");
   }
   if (work.postedBy.toString() !== req.user._id) {
     return res.status(401).json({ message: "Not enough permission" });
   } else {
-    await job.findByIdAndDelete(_id);
+    await job.findByIdAndDelete(id);
     res.json({ message: "deleted successfully" });
   }
 };
 
 const updateJob = async (req, res) => {
-  const _id = req.params.id;
+  const { id } = req.params;
   const newUpdate = req.body;
-  const availableJob = await job.findById(_id);
+  const availableJob = await job.findById(id);
   console.log(availableJob.postedBy.toString());
   console.log(req.user._id);
 
@@ -70,7 +70,7 @@ const updateJob = async (req, res) => {
   if (availableJob.postedBy.toString() !== req.user._id) {
     res.status(401).json({ message: "no such permission " });
   } else {
-    await job.findByIdAndUpdate(_id, newUpdate);
+    await job.findByIdAndUpdate(id, newUpdate);
     res.json("Editied Successfully");
   }
 };

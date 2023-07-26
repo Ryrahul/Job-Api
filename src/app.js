@@ -5,7 +5,7 @@ const router = require("../src/routes/router");
 const errorMiddlewar = require("./middleware/errormiddleware");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.use("/api", router);
 app.use(errorMiddlewar);
 

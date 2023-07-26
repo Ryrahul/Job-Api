@@ -31,8 +31,8 @@ const getApplications = async (req, res) => {
 };
 const getApplication = async (req, res) => {
   try {
-    const _id = req.params.id;
-    const candidate = await applicant.find({ _id: _id });
+    const {id} = req.params;
+    const candidate = await applicant.find({ _id: id });
     res.send(candidate);
   } catch (e) {
     res.json(e.message);
@@ -40,8 +40,8 @@ const getApplication = async (req, res) => {
 };
 const deleteApplications = async (req, res) => {
   try {
-    const _id = req.params.id;
-    const candidate = await applicant.findById(_id);
+    const {id} = req.params.id;
+    const candidate = await applicant.findById(id);
 
     if (!candidate) {
       return res.json({ message: "No such application" });
